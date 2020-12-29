@@ -5,17 +5,21 @@ import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.main.Start;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Optional;
 
 import static cz.vse.sudoku.logic.Cells.sizeSudoku;
 
 public class GameController {
 
+    long startTime;
     public GridPane sudokuGrid;
     Stage gameStage;
     Cells cells;
@@ -28,6 +32,8 @@ public class GameController {
         cells = new Cells(numberGenerator.getRandom());
 
         createGrid();
+
+        startTime = System.nanoTime();
     }
 
     void printSudoku() {
@@ -114,6 +120,44 @@ public class GameController {
     }
 
     private void showWinDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game finished");
+        alert.setHeaderText("You have successfully solved this Sudoku\nTIME: XXmm:XXss");
+        alert.setContentText("Would you like to save your score to the leaderboard or Go back to the menu?");
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.getDialogPane().setPrefSize(480, 200);
+
+        Button saveButton = (Button) alert.getDialogPane().lookupButton(ButtonType.YES);
+        saveButton.setText("Save my score");
+
+        Button showLeaderboardButton = (Button) alert.getDialogPane().lookupButton(ButtonType.NO);
+        showLeaderboardButton.setText("Show leaderboard");
+
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancelButton.setText("Back to menu");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (!result.isPresent()) {
+        } else if (result.get() == ButtonType.YES) {
+            // TODO save score
+            saveScore();
+        } else if (result.get() == ButtonType.NO) {
+            // TODO show leaderboard
+        } else if (result.get() == ButtonType.CANCEL) {
+            try {
+                onBack();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void saveScore() {
+//        long endTime = System.nanoTime();
+//        long timeElapsed = endTime - startTime;
+
 
     }
 
@@ -145,6 +189,7 @@ public class GameController {
 
     }
 
+    // TODO nezavira se
     public void onBack() throws IOException {
         gameStage.close();
         Start.showMenu(gameStage);
