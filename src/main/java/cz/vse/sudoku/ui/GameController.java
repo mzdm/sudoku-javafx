@@ -3,6 +3,7 @@ package cz.vse.sudoku.ui;
 import cz.vse.sudoku.logic.Cells;
 import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.main.Start;
+import cz.vse.sudoku.service.FirebaseService;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
@@ -19,13 +20,18 @@ import static cz.vse.sudoku.logic.Cells.sizeSudoku;
 
 public class GameController {
 
-    long startTime;
     public GridPane sudokuGrid;
-    Stage gameStage;
-    Cells cells;
+
+    private Cells cells;
+    private Stage gameStage;
+
+    private FirebaseService firebaseService;
+
+    private long startTime;
+    private long endTime;
 
     public void init(Stage primaryStage) {
-        gameStage = primaryStage;
+        this.gameStage = primaryStage;
         gameStage.close();
 
         NumberGenerator numberGenerator = new NumberGenerator();
@@ -36,7 +42,7 @@ public class GameController {
         startTime = System.nanoTime();
     }
 
-    void printSudoku() {
+    private void printSudoku() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
                 this.cells.getArraySudoku()[i][j] = cells.getArraySudoku()[i][j];
@@ -139,6 +145,7 @@ public class GameController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (!result.isPresent()) {
+            // do nothing
         } else if (result.get() == ButtonType.YES) {
             // TODO save score
             saveScore();
@@ -155,10 +162,12 @@ public class GameController {
     }
 
     private void saveScore() {
-//        long endTime = System.nanoTime();
-//        long timeElapsed = endTime - startTime;
 
+    }
 
+    private void stopTimer() {
+        //  long endTime = System.nanoTime();
+        //  long timeElapsed = endTime - startTime;
     }
 
     private boolean allFilled() {

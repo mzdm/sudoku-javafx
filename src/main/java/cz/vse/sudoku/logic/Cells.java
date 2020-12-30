@@ -2,7 +2,6 @@ package cz.vse.sudoku.logic;
 
 public class Cells {
     private int[][] arraySudoku;
-    public static final int emptyCell = 0;
     public static final int sizeSudoku = 9;
 
     public Cells(int[][] arraySudoku) {
@@ -53,7 +52,6 @@ public class Cells {
     public boolean checkSudoku() {
         return checkColumns() && checkGrids() && checkRow();
     }
-
 
     public int[][] getArraySudoku() {
         return arraySudoku;
