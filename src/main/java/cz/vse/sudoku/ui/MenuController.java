@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -84,7 +86,16 @@ public class MenuController {
     }
 
     public void onHelp() {
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+        webEngine.load(getClass().getResource("/help.html").toString());
+        Scene scene = new Scene(webView, 840, 720);
 
+        Stage secondaryStage = new Stage();
+        secondaryStage.setScene(scene);
+        secondaryStage.setTitle("Help");
+        secondaryStage.initOwner(menuStage);
+        secondaryStage.show();
     }
 
     public void onExit() {
