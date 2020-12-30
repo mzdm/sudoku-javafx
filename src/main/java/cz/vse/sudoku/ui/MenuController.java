@@ -88,6 +88,6 @@ public class MenuController {
     }
 
     public void onExit() {
-
+        System.exit(0);
     }
 }
