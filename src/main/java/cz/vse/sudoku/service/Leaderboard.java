@@ -3,7 +3,7 @@ package cz.vse.sudoku.service;
 import java.util.*;
 
 public class Leaderboard {
-    private final List<User> userList;
+    private List<User> userList;
 
     public Leaderboard(Map<String, Object> scoreMap) {
         this.userList = new ArrayList<>();

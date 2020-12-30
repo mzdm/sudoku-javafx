@@ -1,7 +1,5 @@
 package cz.vse.sudoku.main;
 
-import cz.vse.sudoku.logic.Cells;
-import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.ui.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,16 +13,6 @@ public class Start extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
-//        test();
-    }
-
-    private static void test() {
-        NumberGenerator numberGenerator = new NumberGenerator();
-        Cells cells = new Cells(numberGenerator.getRandom());
-
-//        System.out.println(Cells.sudokuCheck(cells.getArraySudoku()));
-//        System.out.println(cells.solve(cells.getArraySudoku()));
     }
 
     @Override

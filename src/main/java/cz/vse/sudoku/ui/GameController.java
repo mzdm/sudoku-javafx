@@ -108,7 +108,6 @@ public class GameController {
 
                             printSudoku();
                             if (allFilled()) {
-//                                System.out.println(cells.solve());
                                 boolean isCorrect = cells.checkSudoku();
                                 System.out.println("sudoku je vyplneno spravne: " + isCorrect);
                                 if (isCorrect) {
@@ -116,7 +115,6 @@ public class GameController {
                                 }
                             }
                             System.out.println();
-//                            System.out.println(cells.solve(cells.getArraySudoku()));
                         }
                     }
                 });

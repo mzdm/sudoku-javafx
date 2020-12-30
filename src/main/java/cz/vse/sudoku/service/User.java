@@ -1,8 +1,8 @@
 package cz.vse.sudoku.service;
 
 public class User {
-    private final String name;
-    private final int scoreTime;
+    private String name;
+    private int scoreTime;
 
     public User(String name, int scoreTime) {
         this.name = name;
