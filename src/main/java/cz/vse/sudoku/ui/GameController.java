@@ -3,30 +3,37 @@ package cz.vse.sudoku.ui;
 import cz.vse.sudoku.logic.Cells;
 import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.main.Start;
+import cz.vse.sudoku.service.FirebaseService;
+import cz.vse.sudoku.service.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Random;
 
 import static cz.vse.sudoku.logic.Cells.sizeSudoku;
 
 public class GameController {
 
-    long startTime;
     public GridPane sudokuGrid;
-    Stage gameStage;
-    Cells cells;
+
+    private Cells cells;
+    private Stage gameStage;
+
+    private FirebaseService firebaseService;
+
+    private long startTime;
+    private long endTime;
 
     public void init(Stage primaryStage) {
-        gameStage = primaryStage;
+        this.gameStage = primaryStage;
         gameStage.close();
+
+        firebaseService = FirebaseService.getInstance();
 
         NumberGenerator numberGenerator = new NumberGenerator();
         cells = new Cells(numberGenerator.getRandom());
@@ -36,7 +43,7 @@ public class GameController {
         startTime = System.nanoTime();
     }
 
-    void printSudoku() {
+    private void printSudoku() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
                 this.cells.getArraySudoku()[i][j] = cells.getArraySudoku()[i][j];
@@ -139,6 +146,7 @@ public class GameController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (!result.isPresent()) {
+            // do nothing
         } else if (result.get() == ButtonType.YES) {
             // TODO save score
             saveScore();
@@ -155,10 +163,28 @@ public class GameController {
     }
 
     private void saveScore() {
-//        long endTime = System.nanoTime();
-//        long timeElapsed = endTime - startTime;
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setHeaderText("Save score to leaderboard");
+        dialog.setContentText("username:");
 
+        Optional<String> result = dialog.showAndWait();
 
+        if (!result.isPresent()) return;
+
+        if (!result.get().isEmpty()) {
+            String username = result.get();
+            int scoreTime = getCurrentScoreTime();
+
+            User user = new User(username, scoreTime);
+            firebaseService.saveScore(user);
+        }
+    }
+
+    private int getCurrentScoreTime() {
+        //  long endTime = System.nanoTime();
+        //  long timeElapsed = endTime - startTime;
+        Random random = new Random();
+        return random.nextInt(1600) + 150;
     }
 
     private boolean allFilled() {
