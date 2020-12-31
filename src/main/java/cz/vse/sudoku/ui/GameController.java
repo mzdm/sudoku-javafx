@@ -91,10 +91,16 @@ public class GameController {
                 if (num == 0) {
                     textFieldCell.clear();
                 } else {
-                    textFieldCell.setMouseTransparent(true);
+                    textFieldCell.setEditable(false);
                     color = "red";
                 }
-                textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER;");
+
+                String gridStyle = "";
+                if (shouldCellBlue(i, j)) {
+                    gridStyle = "-fx-background-color: rgba(229, 238, 247, 0.85); -fx-border-color: rgb(192,192,192);";
+                }
+                textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER;" + gridStyle);
+
 
                 final int finalI = i;
                 final int finalJ = j;
@@ -150,6 +156,12 @@ public class GameController {
             }
         }
 
+    }
+
+    private boolean shouldCellBlue(int i, int j) {
+        if ((i <= 2 || i >= 6)) {
+            return j >= 3 && j <= 5;
+        } else return !(j >= 3 && j <= 5);
     }
 
     private void showWinDialog() {
