@@ -94,7 +94,7 @@ public class MenuController {
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
         webEngine.load(getClass().getResource("/help.html").toString());
-        Scene scene = new Scene(webView, 840, 720);
+        Scene scene = new Scene(webView, 840, 650);
 
         Stage secondaryStage = new Stage();
         secondaryStage.setScene(scene);

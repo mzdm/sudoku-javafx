@@ -7,8 +7,9 @@
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="cz.vse.sudoku.ui.GameController"
-      prefWidth="900.0" prefHeight="700.0"
-      style="-fx-padding: 40 80 0 80;">
+      prefWidth="1000.0" prefHeight="700.0"
+      style="-fx-padding: 40 80 0 80;"
+      alignment="TOP_CENTER">
 
     <HBox spacing="450" alignment="CENTER">
         <Label onMouseClicked="#onBack">Back to Menu</Label>
@@ -18,7 +19,7 @@
         </HBox>
     </HBox>
 
-    <GridPane fx:id="sudokuGrid" style="-fx-padding: 40 0 60 0;">
+    <GridPane fx:id="sudokuGrid" style="-fx-padding: 40 0 60 0;" maxWidth="500">
     </GridPane>
 
     <HBox alignment="BOTTOM_CENTER" spacing="200">
