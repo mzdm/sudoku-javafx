@@ -19,9 +19,10 @@ public class NumberGenerator {
 
     public int[][] getRandom() {
 //        List<int[][]> sudokuList = Arrays.asList(board, board2, board3, board4, board5, board6, board7, board8);
-//        Random random = new Random();
-//        return sudokuList.get(random.nextInt(sudokuList.size()));
+        List<int[][]> sudokuList = Arrays.asList(board, boardTest2);
+        Random random = new Random();
+        return sudokuList.get(random.nextInt(sudokuList.size()));
 
-        return boardTest2;
+//        return boardTest2;
     }
 }

@@ -28,7 +28,7 @@ public class Start extends Application {
         menuController.init(primaryStage);
 
         primaryStage.setTitle("Main Menu");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 900, 700));
         primaryStage.show();
     }
 }
