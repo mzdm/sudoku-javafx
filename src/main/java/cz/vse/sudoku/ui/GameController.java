@@ -70,16 +70,6 @@ public class GameController {
         }
     }
 
-    private void printSudoku() {
-        for (int i = 0; i < sizeSudoku; i++) {
-            for (int j = 0; j < sizeSudoku; j++) {
-                this.cells.getArraySudoku()[i][j] = cells.getArraySudoku()[i][j];
-                System.out.print(cells.getArraySudoku()[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
     public void createGrid() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
@@ -117,7 +107,7 @@ public class GameController {
                             int[][] changed = cells.getArraySudoku();
                             changed[finalI][finalJ] = 0;
                             cells.setArraySudoku(changed);
-                            printSudoku();
+                            cells.printSudoku();
                             textFieldCell.setText("");
                         } else {
                             int typedNumber = 0;
@@ -139,11 +129,12 @@ public class GameController {
                                 cells.setArraySudoku(changed);
                             }
 
-                            printSudoku();
-                            if (allFilled()) {
-                                boolean isCorrect = cells.checkSudoku();
-                                System.out.println("sudoku je vyplneno spravne: " + isCorrect);
-                                if (isCorrect) {
+                            cells.printSudoku();
+
+                            if (cells.areAllCellsFilled()) {
+                                boolean isSudokuValid = cells.isSudokuValid();
+                                System.out.println("sudoku je vyplneno spravne: " + isSudokuValid);
+                                if (isSudokuValid) {
                                     stopTimer();
                                     showWinDialog();
                                 }
@@ -224,17 +215,6 @@ public class GameController {
             User user = new User(username, scoreTime);
             firebaseService.saveScore(user);
         }
-    }
-
-    private boolean allFilled() {
-        for (int i = 0; i < sizeSudoku; i++) {
-            for (int j = 0; j < sizeSudoku; j++) {
-                if (cells.getArraySudoku()[i][j] == 0) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public void onRegenerate() {

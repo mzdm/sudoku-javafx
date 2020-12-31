@@ -49,8 +49,28 @@ public class Cells {
         return true;
     }
 
-    public boolean checkSudoku() {
+    public boolean areAllCellsFilled() {
+        for (int i = 0; i < sizeSudoku; i++) {
+            for (int j = 0; j < sizeSudoku; j++) {
+                if (arraySudoku[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean isSudokuValid() {
         return checkColumns() && checkGrids() && checkRow();
+    }
+
+    public void printSudoku() {
+        for (int i = 0; i < sizeSudoku; i++) {
+            for (int j = 0; j < sizeSudoku; j++) {
+                System.out.print(arraySudoku[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public int[][] getArraySudoku() {
