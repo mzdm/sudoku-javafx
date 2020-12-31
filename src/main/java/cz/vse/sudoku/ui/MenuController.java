@@ -48,29 +48,34 @@ public class MenuController {
     }
 
     public void onLeaderboard() {
-        Leaderboard leaderboard = firebaseService.getScores();
-        ListView listView = new ListView();
         StackPane layout = new StackPane();
-
-        if (leaderboard != null) {
-            List<User> userList = leaderboard.getUserList();
-            for (int i = 0; i < 10; i++) {
-                User user = null;
-                if (i < userList.size()) {
-                    user = userList.get(i);
-                }
-                listView.getItems().add(addLeaderboardItem(i + 1, user));
-            }
-        }
-
-        layout.getChildren().add(listView);
+        layout.setPrefSize(350, 500);
         Scene scene = new Scene(layout);
 
         Stage secondaryStage = new Stage();
         secondaryStage.setScene(scene);
         secondaryStage.setTitle("Leaderboard");
-//        secondaryStage.initOwner(menuStage);
         secondaryStage.show();
+
+        try {
+            ListView listView = new ListView();
+            Leaderboard leaderboard = firebaseService.getScores();
+            if (leaderboard != null) {
+                List<User> userList = leaderboard.getUserList();
+                for (int i = 0; i < 10; i++) {
+                    User user = null;
+                    if (i < userList.size()) {
+                        user = userList.get(i);
+                    }
+                    listView.getItems().add(addLeaderboardItem(i + 1, user));
+                }
+            }
+            layout.getChildren().add(listView);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Label errorLabel = new Label("Could not load the Leaderboard");
+            layout.getChildren().add(errorLabel);
+        }
     }
 
     private Label addLeaderboardItem(int pos, User user) {
