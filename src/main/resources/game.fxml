@@ -7,16 +7,15 @@
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="cz.vse.sudoku.ui.GameController"
-      prefHeight="400.0" prefWidth="600.0">
-    <Label alignment="TOP_LEFT" onMouseClicked="#onBack">Back to Menu</Label>
+      prefWidth="900.0" prefHeight="700.0"
+      style="-fx-padding: 40 80 0 80;">
 
     <GridPane fx:id="sudokuGrid">
 
+    <GridPane fx:id="sudokuGrid" style="-fx-padding: 40 0 60 0;">
     </GridPane>
 
-
-    <HBox alignment="BOTTOM_CENTER"
-          spacing="15">
+    <HBox alignment="BOTTOM_CENTER" spacing="200">
         <Label onMouseClicked="#onRegenerate">Regenerate</Label>
         <Label onMouseClicked="#onSave">Save</Label>
         <Label onMouseClicked="#onHelp">Help</Label>
