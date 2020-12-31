@@ -5,15 +5,18 @@ import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.main.Start;
 import cz.vse.sudoku.service.FirebaseService;
 import cz.vse.sudoku.service.User;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static cz.vse.sudoku.logic.Cells.sizeSudoku;
 
@@ -22,14 +25,16 @@ public class GameController {
     private MenuController menuController;
 
     public GridPane sudokuGrid;
+    public Label timerTextLabel;
 
     private Cells cells;
     private Stage gameStage;
 
     private FirebaseService firebaseService;
 
-    private long startTime;
-    private long endTime;
+    private Timer timer;
+    private int timerSecs = 0;
+    private boolean scoreAlreadySaved = false;
 
     public void init(MenuController menuController, Stage primaryStage) {
         this.menuController = menuController;
@@ -42,8 +47,27 @@ public class GameController {
         cells = new Cells(numberGenerator.getRandom());
 
         createGrid();
+        startTimer();
+    }
 
-        startTime = System.nanoTime();
+    private void startTimer() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    int currentTime = ++timerSecs;
+                    timerTextLabel.setText("" + currentTime);
+                });
+            }
+        }, 0, 1000);
+    }
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     private void printSudoku() {
@@ -114,6 +138,7 @@ public class GameController {
                                 boolean isCorrect = cells.checkSudoku();
                                 System.out.println("sudoku je vyplneno spravne: " + isCorrect);
                                 if (isCorrect) {
+                                    stopTimer();
                                     showWinDialog();
                                 }
                             }
@@ -130,37 +155,43 @@ public class GameController {
     private void showWinDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game finished");
-        alert.setHeaderText("You have successfully solved this Sudoku\nTIME: XXmm:XXss");
+        alert.setHeaderText("You have successfully solved this Sudoku\nTIME: " + timerSecs + "s");
         alert.setContentText("Would you like to save your score to the leaderboard or Go back to the menu?");
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.getDialogPane().setPrefSize(480, 200);
 
         Button saveButton = (Button) alert.getDialogPane().lookupButton(ButtonType.YES);
+        saveButton.addEventFilter(ActionEvent.ACTION, event -> {
+            if (scoreAlreadySaved) {
+                saveButton.setDisable(true);
+            } else {
+                saveScore();
+            }
+            event.consume();
+        });
         saveButton.setText("Save my score");
 
         Button showLeaderboardButton = (Button) alert.getDialogPane().lookupButton(ButtonType.NO);
+        showLeaderboardButton.addEventFilter(ActionEvent.ACTION, event -> {
+            menuController.onLeaderboard();
+            event.consume();
+        });
         showLeaderboardButton.setText("Show leaderboard");
 
         Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
         cancelButton.setText("Back to menu");
 
-
         Optional<ButtonType> result = alert.showAndWait();
         if (!result.isPresent()) {
             // do nothing
-        } else if (result.get() == ButtonType.YES) {
-            // TODO save score
-            saveScore();
-        } else if (result.get() == ButtonType.NO) {
-            // TODO show leaderboard
         } else if (result.get() == ButtonType.CANCEL) {
+            // back to the menu
             try {
                 onBack();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     private void saveScore() {
@@ -173,19 +204,14 @@ public class GameController {
         if (!result.isPresent()) return;
 
         if (!result.get().isEmpty()) {
+            scoreAlreadySaved = true;
+
             String username = result.get();
-            int scoreTime = getCurrentScoreTime();
+            int scoreTime = timerSecs;
 
             User user = new User(username, scoreTime);
             firebaseService.saveScore(user);
         }
-    }
-
-    private int getCurrentScoreTime() {
-        //  long endTime = System.nanoTime();
-        //  long timeElapsed = endTime - startTime;
-        Random random = new Random();
-        return random.nextInt(1600) + 150;
     }
 
     private boolean allFilled() {
@@ -200,6 +226,8 @@ public class GameController {
     }
 
     public void onRegenerate() {
+        timerSecs = 0;
+        stopTimer();
 
     }
 
@@ -213,6 +241,9 @@ public class GameController {
 
     // TODO nezavira se
     public void onBack() throws IOException {
+        timerSecs = 0;
+        stopTimer();
+
         gameStage.close();
         Start.showMenu(gameStage);
     }
