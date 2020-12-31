@@ -58,7 +58,7 @@ public class MenuController {
         secondaryStage.show();
 
         try {
-            ListView listView = new ListView();
+            ListView<Label> listView = new ListView<Label>();
             Leaderboard leaderboard = firebaseService.getScores();
             if (leaderboard != null) {
                 List<User> userList = leaderboard.getUserList();
