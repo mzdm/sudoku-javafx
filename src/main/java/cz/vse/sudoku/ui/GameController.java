@@ -19,6 +19,8 @@ import static cz.vse.sudoku.logic.Cells.sizeSudoku;
 
 public class GameController {
 
+    private MenuController menuController;
+
     public GridPane sudokuGrid;
 
     private Cells cells;
@@ -29,7 +31,8 @@ public class GameController {
     private long startTime;
     private long endTime;
 
-    public void init(Stage primaryStage) {
+    public void init(MenuController menuController, Stage primaryStage) {
+        this.menuController = menuController;
         this.gameStage = primaryStage;
         gameStage.close();
 
@@ -196,10 +199,6 @@ public class GameController {
         return true;
     }
 
-    public void onCellFilled() {
-//        cells.solve(cells.getArraySudoku());
-    }
-
     public void onRegenerate() {
 
     }
@@ -209,8 +208,7 @@ public class GameController {
     }
 
     public void onHelp() {
-
-
+        menuController.onHelp();
     }
 
     // TODO nezavira se

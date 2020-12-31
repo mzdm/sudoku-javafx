@@ -34,7 +34,7 @@ public class MenuController {
         Scene scene = new Scene(root);
 
         GameController gameController = loader.getController();
-        gameController.init(menuStage);
+        gameController.init(this, menuStage);
 
         Stage gameStage = new Stage();
         gameStage.setScene(scene);
