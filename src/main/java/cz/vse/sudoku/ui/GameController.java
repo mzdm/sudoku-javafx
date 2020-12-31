@@ -60,7 +60,7 @@ public class GameController {
                     timerTextLabel.setText("" + currentTime);
                 });
             }
-        }, 0, 1000);
+        }, 500, 1000);
     }
 
     private void stopTimer() {
