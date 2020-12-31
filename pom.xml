@@ -25,7 +25,7 @@
 
     <groupId>cz.vse.sudoku</groupId>
     <artifactId>sudoku-javafx</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 
     <!--    https://jitpack.io/p/bane73/firebase4j -->
     <dependencies>

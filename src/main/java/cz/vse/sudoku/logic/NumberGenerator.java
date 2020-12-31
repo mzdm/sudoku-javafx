@@ -17,7 +17,7 @@ public class NumberGenerator {
     int[][] boardTest = {{5, 1, 3, 7, 0, 9, 6, 8, 2}, {4, 6, 2, 1, 5, 8, 7, 3, 9}, {9, 8, 7, 2, 3, 6, 1, 5, 4}, {1, 5, 6, 8, 9, 2, 4, 7, 0}, {8, 2, 4, 6, 7, 3, 5, 9, 1}, {7, 3, 9, 5, 1, 4, 2, 0, 8}, {6, 4, 8, 3, 2, 5, 9, 1, 7}, {3, 9, 1, 4, 6, 7, 8, 2, 5}, {2, 7, 5, 9, 8, 1, 3, 4, 0}};
     int[][] boardTest2 = {{0, 1, 3, 7, 4, 9, 6, 8, 2}, {4, 6, 2, 1, 5, 8, 7, 3, 9}, {9, 8, 7, 2, 3, 6, 1, 5, 4}, {1, 5, 6, 8, 9, 2, 4, 7, 3}, {8, 2, 4, 6, 7, 3, 5, 9, 1}, {7, 3, 9, 5, 1, 4, 2, 6, 8}, {0, 4, 8, 3, 2, 5, 9, 1, 7}, {3, 9, 1, 4, 6, 7, 8, 2, 5}, {2, 7, 5, 9, 8, 1, 3, 4, 6}};
 
-    public int[][] getRandom() {
+    public int[][] getRandomSudoku() {
 //        List<int[][]> sudokuList = Arrays.asList(board, board2, board3, board4, board5, board6, board7, board8);
         List<int[][]> sudokuList = Arrays.asList(board, boardTest2);
         Random random = new Random();

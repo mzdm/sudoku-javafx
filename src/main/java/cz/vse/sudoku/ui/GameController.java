@@ -1,6 +1,6 @@
 package cz.vse.sudoku.ui;
 
-import cz.vse.sudoku.logic.Cells;
+import cz.vse.sudoku.logic.SudokuCells;
 import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.main.Start;
 import cz.vse.sudoku.service.FirebaseService;
@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static cz.vse.sudoku.logic.Cells.sizeSudoku;
+import static cz.vse.sudoku.logic.SudokuCells.sizeSudoku;
 
 public class GameController {
 
@@ -27,7 +27,7 @@ public class GameController {
     public GridPane sudokuGrid;
     public Label timerTextLabel;
 
-    private Cells cells;
+    private SudokuCells cells;
     private Stage gameStage;
 
     private FirebaseService firebaseService;
@@ -44,7 +44,7 @@ public class GameController {
         firebaseService = FirebaseService.getInstance();
 
         NumberGenerator numberGenerator = new NumberGenerator();
-        cells = new Cells(numberGenerator.getRandom());
+        cells = new SudokuCells(numberGenerator.getRandomSudoku());
 
         createGrid();
         startTimer();
@@ -73,7 +73,7 @@ public class GameController {
     public void createGrid() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
-                int num = cells.getArraySudoku()[i][j];
+                int num = cells.getArraySudoku()[i][j].getCellNum();
 
                 String color = "black";
                 final TextField textFieldCell = new TextField("" + num);
@@ -92,8 +92,8 @@ public class GameController {
                 textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER;" + gridStyle);
 
 
-                final int finalI = i;
-                final int finalJ = j;
+                final int tempI = i;
+                final int tempJ = j;
                 textFieldCell.textProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observable,
                                         String oldValue, String newValue) {
@@ -104,9 +104,7 @@ public class GameController {
                         } else if (newValue.length() == 0) {
                             System.out.println("smazano pole");
 
-                            int[][] changed = cells.getArraySudoku();
-                            changed[finalI][finalJ] = 0;
-                            cells.setArraySudoku(changed);
+                            cells.changeElement(tempI, tempJ, 0);
                             cells.printSudoku();
                             textFieldCell.setText("");
                         } else {
@@ -123,10 +121,7 @@ public class GameController {
                                 textFieldCell.clear();
                             } else {
                                 System.out.println("dobrý číslo (1-9)");
-
-                                int[][] changed = cells.getArraySudoku();
-                                changed[finalI][finalJ] = Integer.parseInt(newValue);
-                                cells.setArraySudoku(changed);
+                                cells.changeElement(tempI, tempJ, Integer.parseInt(newValue));
                             }
 
                             cells.printSudoku();
