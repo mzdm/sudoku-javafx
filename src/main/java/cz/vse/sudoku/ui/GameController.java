@@ -1,8 +1,11 @@
 package cz.vse.sudoku.ui;
 
+import cz.vse.sudoku.logic.Cell;
 import cz.vse.sudoku.logic.SudokuCells;
 import cz.vse.sudoku.logic.NumberGenerator;
 import cz.vse.sudoku.main.Start;
+import cz.vse.sudoku.persistence.PersistenceException;
+import cz.vse.sudoku.persistence.PersistenceProvider;
 import cz.vse.sudoku.service.FirebaseService;
 import cz.vse.sudoku.service.User;
 import javafx.application.Platform;
@@ -31,36 +34,56 @@ public class GameController {
     private Stage gameStage;
 
     private FirebaseService firebaseService;
+    private PersistenceProvider persistenceProvider;
 
     private Timer timer;
     private int timerSecs = 0;
     private boolean scoreAlreadySaved = false;
 
-    public void init(MenuController menuController, Stage primaryStage) {
+    private boolean wasGameLoaded = false;
+
+    public void init(MenuController menuController, Stage menuStage) {
+        this.init(menuController, menuStage, null);
+    }
+
+    public void init(MenuController menuController, Stage primaryStage, Cell[][] loadedSudokuSaveFile) {
         this.menuController = menuController;
         this.gameStage = primaryStage;
         gameStage.close();
 
         firebaseService = FirebaseService.getInstance();
 
-        NumberGenerator numberGenerator = new NumberGenerator();
-        cells = new SudokuCells(numberGenerator.getRandomSudoku());
+        if (loadedSudokuSaveFile == null) {
+            NumberGenerator numberGenerator = new NumberGenerator();
+            cells = new SudokuCells(numberGenerator.getRandomSudoku());
+        } else {
+            wasGameLoaded = true;
+            cells = new SudokuCells(loadedSudokuSaveFile);
+        }
 
         createGrid();
         startTimer();
     }
 
+    public void setPersistenceProvider(PersistenceProvider persistenceProvider) {
+        this.persistenceProvider = persistenceProvider;
+    }
+
     private void startTimer() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    int currentTime = ++timerSecs;
-                    timerTextLabel.setText("" + currentTime);
-                });
-            }
-        }, 500, 1000);
+        if (!wasGameLoaded) {
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        int currentTime = ++timerSecs;
+                        timerTextLabel.setText("" + currentTime);
+                    });
+                }
+            }, 500, 1000);
+        } else {
+            timerTextLabel.setText("-");
+        }
     }
 
     private void stopTimer() {
@@ -74,12 +97,15 @@ public class GameController {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
                 int num = cells.getArraySudoku()[i][j].getCellNum();
+                boolean isCellModifiable = cells.getArraySudoku()[i][j].isModifiable();
 
                 String color = "black";
                 final TextField textFieldCell = new TextField("" + num);
 
-                if (num == 0) {
-                    textFieldCell.clear();
+                if (isCellModifiable) {
+                    if (num == 0) {
+                        textFieldCell.clear();
+                    }
                 } else {
                     textFieldCell.setEditable(false);
                     color = "red";
@@ -145,20 +171,32 @@ public class GameController {
     }
 
     private boolean shouldCellBlue(int i, int j) {
-        if ((i <= 2 || i >= 6)) {
-            return j >= 3 && j <= 5;
-        } else return !(j >= 3 && j <= 5);
+        if (sizeSudoku == 9) {
+            if ((i <= 2 || i >= 6)) {
+                return j >= 3 && j <= 5;
+            } else return !(j >= 3 && j <= 5);
+        }
+        return false;
     }
 
     private void showWinDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game finished");
-        alert.setHeaderText("You have successfully solved this Sudoku\nTIME: " + timerSecs + "s");
+
+        String timerText = "";
+        if (!wasGameLoaded) {
+            timerText = "\nTIME: " + timerSecs + "s";
+        }
+
+        alert.setHeaderText("You have successfully solved this Sudoku." + timerText);
         alert.setContentText("Would you like to save your score to the leaderboard or Go back to the menu?");
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.getDialogPane().setPrefSize(480, 200);
 
         Button saveButton = (Button) alert.getDialogPane().lookupButton(ButtonType.YES);
+        if (wasGameLoaded) {
+            saveButton.setDisable(true);
+        }
         saveButton.addEventFilter(ActionEvent.ACTION, event -> {
             if (scoreAlreadySaved) {
                 saveButton.setDisable(true);
@@ -214,12 +252,17 @@ public class GameController {
 
     public void onRegenerate() {
         timerSecs = 0;
+        wasGameLoaded = false;
         stopTimer();
 
     }
 
     public void onSave() {
-
+        try {
+            persistenceProvider.saveGame(cells.getArraySudoku());
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onHelp() {

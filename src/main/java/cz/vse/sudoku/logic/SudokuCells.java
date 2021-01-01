@@ -19,6 +19,12 @@ public class SudokuCells {
         printSudoku();
     }
 
+    public SudokuCells(Cell[][] loadedSudokuSaveFile) {
+        this.arraySudoku = loadedSudokuSaveFile;
+        System.out.println("loaded");
+        printSudoku();
+    }
+
     private boolean checkRows() {
         for (int row = 0; row < sizeSudoku; row++) {
             for (int col = 0; col < sizeSudoku - 1; col++) {

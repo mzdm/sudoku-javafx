@@ -1,5 +1,9 @@
 package cz.vse.sudoku.ui;
 
+import cz.vse.sudoku.logic.Cell;
+import cz.vse.sudoku.persistence.LocalStorage;
+import cz.vse.sudoku.persistence.PersistenceException;
+import cz.vse.sudoku.persistence.PersistenceProvider;
 import cz.vse.sudoku.service.FirebaseService;
 import cz.vse.sudoku.service.Leaderboard;
 import cz.vse.sudoku.service.User;
@@ -20,6 +24,7 @@ public class MenuController {
 
     private Stage menuStage;
     private FirebaseService firebaseService;
+    private PersistenceProvider persistenceProvider;
 
     public void init(Stage primaryStage) {
         this.menuStage = primaryStage;
@@ -28,13 +33,26 @@ public class MenuController {
         firebaseService = FirebaseService.getInstance();
     }
 
+    public void setPersistenceProvider(PersistenceProvider persistenceProvider) {
+        this.persistenceProvider = persistenceProvider;
+    }
+
     public void onNewGame() throws IOException {
+        onNewGame(null);
+    }
+
+    private void onNewGame(Cell[][] loadedSudokuSaveFile) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getClassLoader().getResourceAsStream("game.fxml"));
         Scene scene = new Scene(root);
 
         GameController gameController = loader.getController();
-        gameController.init(this, menuStage);
+        if (loadedSudokuSaveFile == null) {
+            gameController.init(this, menuStage);
+        } else {
+            gameController.init(this, menuStage, loadedSudokuSaveFile);
+        }
+        gameController.setPersistenceProvider(new LocalStorage());
 
         Stage gameStage = new Stage();
         gameStage.setScene(scene);
@@ -43,8 +61,12 @@ public class MenuController {
     }
 
     public void onLoad() {
-
-
+        try {
+            Cell[][] loadedSudokuSaveFile = persistenceProvider.loadGame();
+            onNewGame(loadedSudokuSaveFile);
+        } catch (PersistenceException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onLeaderboard() {

@@ -1,5 +1,6 @@
 package cz.vse.sudoku.main;
 
+import cz.vse.sudoku.persistence.LocalStorage;
 import cz.vse.sudoku.ui.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class Start extends Application {
 
         MenuController menuController = loader.getController();
         menuController.init(primaryStage);
+        menuController.setPersistenceProvider(new LocalStorage());
 
         primaryStage.setTitle("Main Menu");
         primaryStage.setScene(new Scene(root, 1000, 700));

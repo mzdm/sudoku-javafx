@@ -1,6 +1,8 @@
 package cz.vse.sudoku.logic;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
     private int cellNum;
     private boolean isModifiable;
 
