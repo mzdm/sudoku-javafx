@@ -63,7 +63,9 @@ public class MenuController {
     public void onLoad() {
         try {
             Cell[][] loadedSudokuSaveFile = persistenceProvider.loadGame();
-            onNewGame(loadedSudokuSaveFile);
+            if (loadedSudokuSaveFile != null) {
+                onNewGame(loadedSudokuSaveFile);
+            }
         } catch (PersistenceException | IOException e) {
             e.printStackTrace();
         }
