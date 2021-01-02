@@ -3,7 +3,8 @@
     -fx-font-size: 20px;
     -fx-alignment: CENTER;
 }
-.menuLabel{
+
+.menuLabel {
     -fx-border-width: 2px;
     -fx-border-color: black;
     -fx-background-color: lightgrey;
@@ -14,15 +15,16 @@
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
-.menuLabel:hover{
+
+.menuLabel:hover {
     -fx-background-color: grey;
 }
 
-.menu{
-   -fx-background-color: #1463b8;
+.menu {
+    -fx-background-color: #1463b8;
 }
 
-.gameMenuLabel{
+.gameMenuLabel {
     -fx-min-width: 100px;
     -fx-min-height: 20px;
     -fx-alignment: center;
@@ -30,13 +32,32 @@
     -fx-cursor: hand;
     -fx-padding: 5;
 }
-.gameMenuLabel:hover{
+
+.gameMenuLabel:hover {
     -fx-background-color: lightgrey;
 }
 
-.logo{
+.logo {
     -fx-font-size: 80px;
     -fx-padding: 0 0 40 0;
     -fx-font-family: Optima;
     -fx-font-weight: bold;
+    -fx-text-fill: #d5d5d5;
+}
+
+#sudokuGrid {
+    -fx-padding: 40 0 60 0;
+    -fx-max-width: 500;
+}
+
+.timerLabel {
+    -fx-font-size: 17;
+    -fx-background-color: rgba(0, 0, 0, 0.25);
+    -fx-padding: 20;
+}
+
+#timerNumberLabel {
+    -fx-font-size: 17;
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-padding: 20 20 20 30;
 }

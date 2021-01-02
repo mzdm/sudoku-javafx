@@ -58,7 +58,7 @@ public class MenuController {
     }
 
     /**
-     * Metoda, která načte hru ze souboru
+     * Metoda, která vytvoří a načte novou hru ze souboru
      *
      * @param loadedSudokuSaveFile uložená hra
      * @throws IOException
@@ -85,7 +85,7 @@ public class MenuController {
     }
 
     /**
-     * Metoda sloužící k uložení hry
+     * Metoda sloužící k načtení uložené hry
      */
     public void onLoad() {
         try {
@@ -143,10 +143,10 @@ public class MenuController {
      * @return řetězec s umístěním, jménem hráče a časem
      */
     private Label addLeaderboardItem(int pos, User user) {
-        String text = pos + "   -----: --s";
+        String text = pos + "      ------------(-- m --s)";
 
         if (user != null) {
-            text = pos + "   User: " + user.getName() + " : " + user.getScoreTime() + "s";
+            text = pos + "      " + user.getName() + " (" + user.getFormattedScoreTime() + ")";
         }
 
         Label label = new Label();

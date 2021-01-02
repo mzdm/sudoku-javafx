@@ -14,12 +14,12 @@
     <HBox spacing="450" alignment="CENTER">
         <Label onMouseClicked="#onBack" styleClass="gameMenuLabel">Back to Menu</Label>
         <HBox>
-            <Label style="-fx-font-size: 17; -fx-background-color: rgba(0, 0, 0, 0.25); -fx-padding: 20">TIMER:</Label>
-            <Label fx:id="timerTextLabel" style="-fx-font-size: 17; -fx-background-color: rgba(0, 0, 0, 0.05);-fx-padding: 20 20 20 30;">0</Label>
+            <Label styleClass="timerLabel">TIMER:</Label>
+            <Label fx:id="timerNumberLabel">0</Label>
         </HBox>
     </HBox>
 
-    <GridPane fx:id="sudokuGrid" style="-fx-padding: 40 0 60 0;" maxWidth="500">
+    <GridPane fx:id="sudokuGrid">
     </GridPane>
 
     <HBox alignment="BOTTOM_CENTER" spacing="200">

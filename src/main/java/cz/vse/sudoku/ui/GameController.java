@@ -9,8 +9,6 @@ import cz.vse.sudoku.persistence.PersistenceProvider;
 import cz.vse.sudoku.service.FirebaseService;
 import cz.vse.sudoku.service.User;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -31,7 +29,7 @@ public class GameController {
     private MenuController menuController;
 
     public GridPane sudokuGrid;
-    public Label timerTextLabel;
+    public Label timerNumberLabel;
 
     private SudokuCells cells;
     private Stage gameStage;
@@ -100,12 +98,12 @@ public class GameController {
                 public void run() {
                     Platform.runLater(() -> {
                         int currentTime = ++timerSecs;
-                        timerTextLabel.setText("" + currentTime);
+                        timerNumberLabel.setText("" + currentTime);
                     });
                 }
             }, 500, 1000);
         } else {
-            timerTextLabel.setText("-");
+            timerNumberLabel.setText("-");
         }
     }
 
@@ -122,7 +120,7 @@ public class GameController {
     /**
      * Metoda vytvářející a upravující samotnou tabulku sudoku a udávající pravidla při vyplňování políček
      */
-    public void createGrid() {
+    private void createGrid() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
                 int num = cells.getArraySudoku()[i][j].getCellNum();
@@ -149,48 +147,45 @@ public class GameController {
 
                 final int tempI = i;
                 final int tempJ = j;
-                textFieldCell.textProperty().addListener(new ChangeListener<String>() {
-                    public void changed(ObservableValue<? extends String> observable,
-                                        String oldValue, String newValue) {
-                        int maxLength = 1;
-                        if (newValue.length() > maxLength) {
-                            String cut = textFieldCell.getText().substring(0, maxLength);
-                            textFieldCell.setText(cut);
-                        } else if (newValue.length() == 0) {
-                            System.out.println("smazano pole");
+                textFieldCell.textProperty().addListener((observable, oldValue, newValue) -> {
+                    int maxLength = 1;
+                    if (newValue.length() > maxLength) {
+                        String cut = textFieldCell.getText().substring(0, maxLength);
+                        textFieldCell.setText(cut);
+                    } else if (newValue.length() == 0) {
+                        System.out.println("smazano pole");
 
-                            cells.changeElement(tempI, tempJ, 0);
-                            cells.printSudoku();
-                            textFieldCell.setText("");
-                        } else {
-                            int typedNumber = 0;
-                            try {
-                                System.out.println(newValue);
-                                typedNumber = Integer.parseInt(newValue);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            if (typedNumber <= 0 || typedNumber >= 10) {
-                                System.out.println("špatný číslo (není 1-9)");
-                                textFieldCell.clear();
-                            } else {
-                                System.out.println("dobrý číslo (1-9)");
-                                cells.changeElement(tempI, tempJ, Integer.parseInt(newValue));
-                            }
-
-                            cells.printSudoku();
-
-                            if (cells.areAllCellsFilled()) {
-                                boolean isSudokuValid = cells.isSudokuValid();
-                                System.out.println("sudoku je vyplneno spravne: " + isSudokuValid);
-                                if (isSudokuValid) {
-                                    stopTimer();
-                                    showWinDialog();
-                                }
-                            }
-                            System.out.println();
+                        cells.changeElement(tempI, tempJ, 0);
+                        cells.printSudoku();
+                        textFieldCell.setText("");
+                    } else {
+                        int typedNumber = 0;
+                        try {
+                            System.out.println(newValue);
+                            typedNumber = Integer.parseInt(newValue);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+
+                        if (typedNumber <= 0 || typedNumber >= 10) {
+                            System.out.println("špatný číslo (není 1-9)");
+                            textFieldCell.clear();
+                        } else {
+                            System.out.println("dobrý číslo (1-9)");
+                            cells.changeElement(tempI, tempJ, Integer.parseInt(newValue));
+                        }
+
+                        cells.printSudoku();
+
+                        if (cells.areAllCellsFilled()) {
+                            boolean isSudokuValid = cells.isSudokuValid();
+                            System.out.println("sudoku je vyplneno spravne: " + isSudokuValid);
+                            if (isSudokuValid) {
+                                stopTimer();
+                                showWinDialog();
+                            }
+                        }
+                        System.out.println();
                     }
                 });
                 sudokuGrid.add(textFieldCell, j, i);
@@ -224,7 +219,8 @@ public class GameController {
 
         String timerText = "";
         if (!wasGameLoaded) {
-            timerText = "\nTIME: " + timerSecs + "s";
+            String formattedTime = new User("", timerSecs).getFormattedScoreTime();
+            timerText = "\nTIME: " + formattedTime;
         }
 
         alert.setHeaderText("You have successfully solved this Sudoku." + timerText);

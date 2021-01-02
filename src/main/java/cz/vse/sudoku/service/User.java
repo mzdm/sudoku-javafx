@@ -38,7 +38,7 @@ public class User {
 
     /**
      * Metoda, která vrací formatovaný String ze zadaného parametru v sekundách.
-     * Formát je ve tvaru 'hodiny:minuty:sekundy'.
+     * Formát je ve tvaru 'minuty:sekundy'.
      *
      * @return formatovaný String
      */
