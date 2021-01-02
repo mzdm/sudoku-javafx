@@ -27,19 +27,12 @@
     <artifactId>sudoku-javafx</artifactId>
     <version>0.3.0</version>
 
+    <!--    https://jitpack.io/p/bane73/firebase4j -->
     <dependencies>
-        <!--    https://jitpack.io/p/bane73/firebase4j -->
         <dependency>
             <groupId>com.github.bane73</groupId>
             <artifactId>firebase4j</artifactId>
             <version>ef03339</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
