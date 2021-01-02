@@ -3,3 +3,33 @@
     -fx-font-size: 20px;
     -fx-alignment: CENTER;
 }
+.menuLabel{
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-background-color: lightgrey;
+    -fx-min-width: 100px;
+    -fx-alignment: center;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.menuLabel:hover{
+    -fx-background-color: grey;
+
+}
+.menu{
+    -fx-background-color: #804000;
+}
+
+.gameMenuLabel{
+    -fx-min-width: 100px;
+    -fx-min-height: 20px;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+}
+.gameMenuLabel:hover{
+    -fx-background-color: lightgrey;
+}
