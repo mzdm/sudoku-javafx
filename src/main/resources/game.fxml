@@ -11,6 +11,7 @@
       style="-fx-padding: 40 80 0 80;"
       alignment="TOP_CENTER">
 
+
     <HBox spacing="450" alignment="CENTER">
         <Label onMouseClicked="#onBack" styleClass="gameMenuLabel">Back to Menu</Label>
         <HBox>
