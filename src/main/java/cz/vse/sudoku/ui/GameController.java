@@ -113,9 +113,9 @@ public class GameController {
 
                 String gridStyle = "";
                 if (shouldCellBlue(i, j)) {
-                    gridStyle = "-fx-background-color: rgba(229, 238, 247, 0.85); -fx-border-color: rgb(192,192,192);";
+                    gridStyle = "-fx-background-color: rgba(229, 238, 247, 0.85);";
                 }
-                textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER;" + gridStyle);
+                textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER; -fx-border-color: rgb(192,192,192);" + gridStyle);
 
 
                 final int tempI = i;

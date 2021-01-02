@@ -93,8 +93,11 @@ public class MenuController {
                     }
                     listView.getItems().add(addLeaderboardItem(i + 1, user));
                 }
+                layout.getChildren().add(listView);
+            } else {
+                Label errorLabel = new Label("Could not load the Leaderboard");
+                layout.getChildren().add(errorLabel);
             }
-            layout.getChildren().add(listView);
         } catch (Exception e) {
             e.printStackTrace();
             Label errorLabel = new Label("Could not load the Leaderboard");
