@@ -7,19 +7,19 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
     -fx-background-color: lightgrey;
-    -fx-min-width: 100px;
+    -fx-min-width: 200px;
     -fx-alignment: center;
     -fx-padding: 5px;
-    -fx-font-size: 14px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
 .menuLabel:hover{
     -fx-background-color: grey;
-
 }
+
 .menu{
-    -fx-background-color: #804000;
+   -fx-background-color: #1463b8;
 }
 
 .gameMenuLabel{
@@ -32,4 +32,11 @@
 }
 .gameMenuLabel:hover{
     -fx-background-color: lightgrey;
+}
+
+.logo{
+    -fx-font-size: 80px;
+    -fx-padding: 0 0 40 0;
+    -fx-font-family: Optima;
+    -fx-font-weight: bold;
 }

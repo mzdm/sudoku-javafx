@@ -23,9 +23,6 @@ import java.util.TimerTask;
 
 import static cz.vse.sudoku.logic.SudokuCells.sizeSudoku;
 
-/**
- * Třída GameController reprezentuje jednotlivé metody, které se provedou, vyvolají v grafické verzi hry na obrazovce se samotnou hrou
- */
 public class GameController {
 
     private MenuController menuController;
@@ -45,23 +42,10 @@ public class GameController {
 
     private boolean wasGameLoaded = false;
 
-    /**
-     * Spuštění nového okna se sudoku
-     *
-     * @param menuController okno s menu
-     * @param primaryStage primární okno
-     */
     public void init(MenuController menuController, Stage primaryStage) {
         this.init(menuController, primaryStage, null);
     }
 
-    /**
-     * Spuštění nového okna se sudokou z uložené hry v souboru
-     *
-     * @param menuController okno s menu
-     * @param primaryStage primární okno
-     * @param loadedSudokuSaveFile uložená hra
-     */
     public void init(MenuController menuController, Stage primaryStage, Cell[][] loadedSudokuSaveFile) {
         this.menuController = menuController;
         this.gameStage = primaryStage;
@@ -80,18 +64,10 @@ public class GameController {
         startTimer();
     }
 
-    /**
-     * Nastavuje tuto třídu jako ukládání objektů do serializace
-     *
-     * @param persistenceProvider
-     */
     public void setPersistenceProvider(PersistenceProvider persistenceProvider) {
         this.persistenceProvider = persistenceProvider;
     }
 
-    /**
-     * Metoda, která spustí timer
-     */
     private void startTimer() {
         if (!wasGameLoaded) {
             timer = new Timer();
@@ -109,9 +85,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Metoda, která zastaví timer
-     */
     private void stopTimer() {
         if (timer != null) {
             timer.cancel();
@@ -119,9 +92,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Metoda vytvářející a upravující samotnou tabulku sudoku a udávající pravidla při vyplňování políček
-     */
     public void createGrid() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
@@ -137,12 +107,12 @@ public class GameController {
                     }
                 } else {
                     textFieldCell.setEditable(false);
-                    color = "red";
+                    color = "grey";
                 }
 
                 String gridStyle = "";
                 if (shouldCellBlue(i, j)) {
-                    gridStyle = "-fx-background-color: rgba(229, 238, 247, 0.85);";
+                    gridStyle = "-fx-background-color: rgb(150,210,241,0.6);";
                 }
                 textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER; -fx-border-color: rgb(192,192,192);" + gridStyle);
 
@@ -199,12 +169,6 @@ public class GameController {
 
     }
 
-    /**
-     * Metoda zjišťující zda mají být políčka modrá a rozdělovat tabulku na jednotlivé bloky po devíti políčkách
-     * @param i
-     * @param j
-     * @return boolean hodnota
-     */
     private boolean shouldCellBlue(int i, int j) {
         if (sizeSudoku == 9) {
             if ((i <= 2 || i >= 6)) {
@@ -214,9 +178,6 @@ public class GameController {
         return false;
     }
 
-    /**
-     * Metoda, která vracející vítězný dialog a možnost uložení a publikování svého výsledku do leaderboardu
-     */
     private void showWinDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game finished");
@@ -268,9 +229,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Metoda, která slouží k uložení hry
-     */
     private void saveScore() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText("Save score to leaderboard");
@@ -291,9 +249,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Metoda, která slouží k obnovení sudoku
-     */
     public void onRegenerate() {
         stopTimer();
         closeWindow();
@@ -305,16 +260,10 @@ public class GameController {
         }
     }
 
-    /**
-     * Metoda, která zavře aktualní okno
-     */
     private void closeWindow() {
         gameStage.close();
     }
 
-    /**
-     * Metoda sloužící k uložení aktualní pozice ve hře
-     */
     public void onSave() {
         try {
             persistenceProvider.saveGame(cells.getArraySudoku());
@@ -323,18 +272,10 @@ public class GameController {
         }
     }
 
-    /**
-     * Metoda, která otevře okno s nápovědou
-     */
     public void onHelp() {
         menuController.onHelp();
     }
 
-    /**
-     * Metoda složící k návratu na první obrazovku do hlavního menu
-     *
-     * @throws IOException
-     */
     public void onBack() throws IOException {
         stopTimer();
         Start.showMenu(gameStage);
