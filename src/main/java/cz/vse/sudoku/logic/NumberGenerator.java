@@ -4,6 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Instance třídy NumberGenerator. Definuje jednotlivá zadání sudoku, která se dále načítají do hry.
+ *
+ * @author Vít Kollarczyk, Matěj Žídek, Dominik Sluka, Jakub Frolík, Jan Kubata
+ * @version 1.0
+ */
 public class NumberGenerator {
     int[][] board = {{0, 3, 5, 4, 0, 7, 0, 9, 0}, {0, 0, 8, 0, 9, 0, 0, 3, 0}, {7, 1, 0, 0, 0, 8, 0, 4, 0}, {0, 0, 0, 7, 0, 3, 0, 0, 9}, {0, 7, 1, 0, 0, 6, 3, 0, 4}, {8, 9, 0, 1, 4, 0, 0, 0, 5}, {0, 5, 7, 2, 0, 0, 0, 8, 3}, {0, 2, 4, 8, 6, 5, 9, 7, 0}, {1, 8, 0, 0, 0, 0, 0, 5, 2}};
     int[][] board2 = {{0, 1, 2, 8, 0, 4, 0, 7, 5}, {8, 0, 0, 1, 7, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 6, 0, 1, 0}, {3, 7, 0, 0, 0, 0, 0, 6, 9}, {5, 4, 0, 6, 0, 7, 0, 0, 0}, {0, 6, 8, 9, 1, 5, 0, 4, 0}, {0, 8, 5, 3, 4, 0, 6, 0, 0}, {0, 2, 3, 0, 0, 1, 9, 5, 0}, {0, 0, 0, 5, 8, 2, 4, 0, 7}};
@@ -17,6 +23,11 @@ public class NumberGenerator {
     int[][] boardTest = {{5, 1, 3, 7, 0, 9, 6, 8, 2}, {4, 6, 2, 1, 5, 8, 7, 3, 9}, {9, 8, 7, 2, 3, 6, 1, 5, 4}, {1, 5, 6, 8, 9, 2, 4, 7, 0}, {8, 2, 4, 6, 7, 3, 5, 9, 1}, {7, 3, 9, 5, 1, 4, 2, 0, 8}, {6, 4, 8, 3, 2, 5, 9, 1, 7}, {3, 9, 1, 4, 6, 7, 8, 2, 5}, {2, 7, 5, 9, 8, 1, 3, 4, 0}};
     int[][] boardTest2 = {{0, 1, 3, 7, 4, 9, 6, 8, 2}, {4, 6, 2, 1, 5, 8, 7, 3, 9}, {9, 8, 7, 2, 3, 6, 1, 5, 4}, {1, 5, 6, 8, 9, 2, 4, 7, 3}, {8, 2, 4, 6, 7, 3, 5, 9, 1}, {7, 3, 9, 5, 1, 4, 2, 6, 8}, {0, 4, 8, 3, 2, 5, 9, 1, 7}, {3, 9, 1, 4, 6, 7, 8, 2, 5}, {2, 7, 5, 9, 8, 1, 3, 4, 6}};
 
+    /**
+     * Getter, který vrací hodnotu konktrétního zadání Sudoku.
+     * Metoda se opírá o funkci random, kdy vybírá náhodné zadání sudoku.
+     * @return zadani_sudoku
+     */
     public int[][] getRandomSudoku() {
 //        List<int[][]> sudokuList = Arrays.asList(board, board2, board3, board4, board5, board6, board7, board8);
         List<int[][]> sudokuList = Arrays.asList(board, boardTest2);

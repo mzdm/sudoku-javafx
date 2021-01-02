@@ -10,12 +10,29 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Instance třídy Start. Spouští aplikaci.
+ *
+ * @author Dominik Sluka, Vít Kollarczyk, Jakub Frolík, Matěj Žídek, Jan Kubata
+ * @version 1.0
+ */
 public class Start extends Application {
 
+    /**
+     * Spouští aplikaci. Vytvoří nové okno.
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     *Metoda Override pro vytvoření Stage. Při spuštění aplikace se jako první zobrazí herní menu.
+     * Scéna se načítá ze souboru menu.fxml
+     * Dále se nastavují hodnoty title, velikost okna atd.
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         showMenu(primaryStage);
