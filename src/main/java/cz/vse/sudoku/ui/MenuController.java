@@ -28,8 +28,6 @@ public class MenuController {
 
     public void init(Stage primaryStage) {
         this.menuStage = primaryStage;
-        menuStage.close();
-
         firebaseService = FirebaseService.getInstance();
     }
 
@@ -42,19 +40,21 @@ public class MenuController {
     }
 
     private void onNewGame(Cell[][] loadedSudokuSaveFile) throws IOException {
+        menuStage.close();
+
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getClassLoader().getResourceAsStream("game.fxml"));
         Scene scene = new Scene(root);
 
+        Stage gameStage = new Stage();
         GameController gameController = loader.getController();
         if (loadedSudokuSaveFile == null) {
-            gameController.init(this, menuStage);
+            gameController.init(this, gameStage);
         } else {
-            gameController.init(this, menuStage, loadedSudokuSaveFile);
+            gameController.init(this, gameStage, loadedSudokuSaveFile);
         }
         gameController.setPersistenceProvider(new LocalStorage());
 
-        Stage gameStage = new Stage();
         gameStage.setScene(scene);
         gameStage.setTitle("Game");
         gameStage.show();

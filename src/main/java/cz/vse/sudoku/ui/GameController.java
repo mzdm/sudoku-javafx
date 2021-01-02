@@ -42,14 +42,13 @@ public class GameController {
 
     private boolean wasGameLoaded = false;
 
-    public void init(MenuController menuController, Stage menuStage) {
-        this.init(menuController, menuStage, null);
+    public void init(MenuController menuController, Stage primaryStage) {
+        this.init(menuController, primaryStage, null);
     }
 
     public void init(MenuController menuController, Stage primaryStage, Cell[][] loadedSudokuSaveFile) {
         this.menuController = menuController;
         this.gameStage = primaryStage;
-        gameStage.close();
 
         firebaseService = FirebaseService.getInstance();
 
@@ -251,10 +250,13 @@ public class GameController {
     }
 
     public void onRegenerate() {
-        timerSecs = 0;
-        wasGameLoaded = false;
         stopTimer();
 
+        try {
+            menuController.onNewGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onSave() {
@@ -269,12 +271,8 @@ public class GameController {
         menuController.onHelp();
     }
 
-    // TODO nezavira se
     public void onBack() throws IOException {
-        timerSecs = 0;
         stopTimer();
-
-        gameStage.close();
         Start.showMenu(gameStage);
     }
 }
