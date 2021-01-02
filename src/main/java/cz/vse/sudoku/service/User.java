@@ -36,8 +36,17 @@ public class User {
         return scoreTime;
     }
 
-    // TODO (minutes, seconds)
+    /**
+     * Metoda, která vrací formatovaný String ze zadaného parametru v sekundách.
+     * Formát je ve tvaru 'hodiny:minuty:sekundy'.
+     *
+     * @return formatovaný String
+     */
     public String getFormattedScoreTime() {
-        return "";
+        int secondsTotal = scoreTime;
+        int m = secondsTotal / 60;
+        int s = secondsTotal % 60;
+
+        return String.format("%02dm %02ds", m, s);
     }
 }

@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Testovací třída pro otestování třídy {@link NumberGenerator}.
+ */
 public class NumberGeneratorTest {
 
     private NumberGenerator numberGenerator;

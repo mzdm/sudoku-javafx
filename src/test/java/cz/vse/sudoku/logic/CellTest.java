@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Testovací třída pro otestování třídy {@link Cell}.
+ */
 public class CellTest {
     @Test
     public void testChangingCells() {
