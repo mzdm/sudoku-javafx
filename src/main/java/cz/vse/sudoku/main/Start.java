@@ -1,7 +1,6 @@
 package cz.vse.sudoku.main;
 
-import cz.vse.sudoku.logic.Cells;
-import cz.vse.sudoku.logic.NumberGenerator;
+import cz.vse.sudoku.persistence.LocalStorage;
 import cz.vse.sudoku.ui.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,16 +14,6 @@ public class Start extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
-//        test();
-    }
-
-    private static void test() {
-        NumberGenerator numberGenerator = new NumberGenerator();
-        Cells cells = new Cells(numberGenerator.getRandom());
-
-//        System.out.println(Cells.sudokuCheck(cells.getArraySudoku()));
-//        System.out.println(cells.solve(cells.getArraySudoku()));
     }
 
     @Override
@@ -38,9 +27,10 @@ public class Start extends Application {
 
         MenuController menuController = loader.getController();
         menuController.init(primaryStage);
+        menuController.setPersistenceProvider(new LocalStorage());
 
         primaryStage.setTitle("Main Menu");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
     }
 }

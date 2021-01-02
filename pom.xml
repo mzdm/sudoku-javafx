@@ -3,10 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>cz.vse.sudoku</groupId>
-    <artifactId>sudoku-javafx</artifactId>
-    <version>0.1.0</version>
     <build>
         <plugins>
             <plugin>
@@ -20,5 +16,23 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
+    <groupId>cz.vse.sudoku</groupId>
+    <artifactId>sudoku-javafx</artifactId>
+    <version>0.3.0</version>
+
+    <!--    https://jitpack.io/p/bane73/firebase4j -->
+    <dependencies>
+        <dependency>
+            <groupId>com.github.bane73</groupId>
+            <artifactId>firebase4j</artifactId>
+            <version>ef03339</version>
+        </dependency>
+    </dependencies>
 </project>

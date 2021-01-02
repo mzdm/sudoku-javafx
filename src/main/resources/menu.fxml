@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="cz.vse.sudoku.ui.MenuController"
-      prefHeight="400.0" prefWidth="600.0" alignment="CENTER" spacing="10">
+      prefHeight="400.0" prefWidth="600.0" alignment="CENTER" spacing="10" stylesheets="styles.css" styleClass="menu">
 
-    <Label onMouseClicked="#onNewGame">New Game</Label>
-    <Label onMouseClicked="#onLoad">Load</Label>
-    <Label onMouseClicked="#onLeaderboard">Leaderboard</Label>
-    <Label onMouseClicked="#onHelp">Help</Label>
-    <Label onMouseClicked="#onExit">Exit</Label>
+    <Label onMouseClicked="#onNewGame" styleClass="menuLabel">New Game</Label>
+    <Label onMouseClicked="#onLoad" styleClass="menuLabel">Load</Label>
+    <Label onMouseClicked="#onLeaderboard" styleClass="menuLabel">Leaderboard</Label>
+    <Label onMouseClicked="#onHelp" styleClass="menuLabel">Help</Label>
+    <Label onMouseClicked="#onExit" styleClass="menuLabel">Exit</Label>
 </VBox>
