@@ -18,6 +18,7 @@ public class LocalStorage implements PersistenceProvider {
      * Metoda pro načítání konkrétní rozpracované hry z lokálního úložiště.
      * Metoda načte stejné sudoku, které měl uživatel rozpracované z předchozí
      * hry v případě, že si danou hru lokálně uložil.
+     *
      * @return načtení hry
      * @throws PersistenceException
      */
@@ -56,6 +57,7 @@ public class LocalStorage implements PersistenceProvider {
     /**
      * Metoda pro ukládání hry. V případě, že hráč uprostřed hry uloží konkrétní hru,
      * má možnost si ji později načíst, nicméně již nebude započítán časový limit.
+     *
      * @param cells
      * @throws PersistenceException
      */

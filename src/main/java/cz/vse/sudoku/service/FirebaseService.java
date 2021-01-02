@@ -36,6 +36,7 @@ public class FirebaseService {
 
     /**
      * Metoda ukládá hodnotu časového skóre, kterého hráč dosáhl, na službu Firebase.
+     *
      * @param user instance třídy User, která obsahuje jméno a skóre
      */
     public void saveScore(User user) {
@@ -60,6 +61,7 @@ public class FirebaseService {
 
     /**
      * Metoda, která volá uložené hodnoty leaderboardu na Firebase.
+     *
      * @return instance třídy Leaderboard, pokud byla operace volání úspěšná, jinak null
      */
     public Leaderboard getScores() {

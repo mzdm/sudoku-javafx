@@ -20,6 +20,7 @@ public class Start extends Application {
 
     /**
      * Spouští aplikaci. Vytvoří nové okno.
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -30,6 +31,7 @@ public class Start extends Application {
      * Metoda Override pro vytvoření Stage. Při spuštění aplikace se jako první zobrazí herní menu.
      * Scéna se načítá ze souboru menu.fxml
      * Dále se nastavují hodnoty title, velikost okna atd.
+     *
      * @param primaryStage
      * @throws Exception
      */
@@ -40,6 +42,7 @@ public class Start extends Application {
 
     /**
      * Metoda, která zobrazí okno Main Menu.
+     *
      * @param primaryStage
      * @throws IOException
      */

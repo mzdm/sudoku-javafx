@@ -25,6 +25,7 @@ public class NumberGenerator {
     /**
      * Getter, který vrací hodnotu konktrétního zadání Sudoku.
      * Metoda se opírá o funkci random, kdy vybírá náhodné zadání sudoku.
+     *
      * @return zadani_sudoku
      */
     public int[][] getRandomSudoku() {

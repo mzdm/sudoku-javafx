@@ -30,6 +30,7 @@ public class SudokuCells {
 
     /**
      * Načítá konkrétní sudoku, které již bylo uložené.
+     *
      * @param loadedSudokuSaveFile
      */
     public SudokuCells(Cell[][] loadedSudokuSaveFile) {
@@ -64,6 +65,7 @@ public class SudokuCells {
     /**
      * Metoda kontroluje všechny sloupce v sudoku a v případě, že se
      * v jednom sloupci nachází konkrétní číslo vícekrát, je to opět proti pravidlům hry.
+     *
      * @return false, v případě, že se číslo již v daném sloupci nachází. V případě, že ne, vrací hodnotu true.
      */
     private boolean checkColumns() {
@@ -85,6 +87,7 @@ public class SudokuCells {
     /**
      * Metoda kontroluje menší pole o velikosti 3x3. Dle pravidel se v tomto menším poli
      * rovněž nesmí nacházet stejné číslo.
+     *
      * @return true, v případě, že se dané číslo v poli již nenachází, jinak false.
      */
     private boolean checkGrids() {
@@ -107,6 +110,7 @@ public class SudokuCells {
 
     /**
      * Metoda ověřuje, jsou-li vyplněny všechny buňky v celém poli sudoku.
+     *
      * @return false, v případě, že nějaká buňka není vyplněna, jinak true.
      */
     public boolean areAllCellsFilled() {
@@ -123,6 +127,7 @@ public class SudokuCells {
     /**
      * Metoda kombinuje výše zmíněné metody, které se zaměřují na pravidla hry sudoku.
      * Tj. ve stejném řádku, sloupci a menším poli se nesmí nacházet stejné číslo vícekrát.
+     *
      * @return kombinace ověřujících metod checkRows, checkColumns, checkGrids
      */
     public boolean isSudokuValid() {
@@ -143,6 +148,7 @@ public class SudokuCells {
 
     /**
      * Getter pro navrácení celého pole sudoku.
+     *
      * @return pole Sudoku
      */
     public Cell[][] getArraySudoku() {
@@ -151,8 +157,9 @@ public class SudokuCells {
 
     /**
      * Nastavuje danou buňku konkrétním číslem, je-li tato přepsána.
-     * @param i Integer
-     * @param j Integer
+     *
+     * @param i      Integer
+     * @param j      Integer
      * @param newNum Integer
      */
     public void changeElement(int i, int j, int newNum) {
