@@ -137,12 +137,12 @@ public class GameController {
                     }
                 } else {
                     textFieldCell.setEditable(false);
-                    color = "red";
+                    color = "grey";
                 }
 
                 String gridStyle = "";
                 if (shouldCellBlue(i, j)) {
-                    gridStyle = "-fx-background-color: rgba(229, 238, 247, 0.85);";
+                    gridStyle = "-fx-background-color: rgb(150,210,241,0.6);";
                 }
                 textFieldCell.setStyle(" -fx-text-fill: " + color + ";-fx-font-size: 20px;-fx-alignment: CENTER; -fx-border-color: rgb(192,192,192);" + gridStyle);
 
