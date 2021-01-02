@@ -27,7 +27,7 @@ public class Start extends Application {
     }
 
     /**
-     *Metoda Override pro vytvoření Stage. Při spuštění aplikace se jako první zobrazí herní menu.
+     * Metoda Override pro vytvoření Stage. Při spuštění aplikace se jako první zobrazí herní menu.
      * Scéna se načítá ze souboru menu.fxml
      * Dále se nastavují hodnoty title, velikost okna atd.
      * @param primaryStage
@@ -38,6 +38,11 @@ public class Start extends Application {
         showMenu(primaryStage);
     }
 
+    /**
+     * Metoda, která zobrazí okno Main Menu.
+     * @param primaryStage
+     * @throws IOException
+     */
     public static void showMenu(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(Start.class.getClassLoader().getResourceAsStream("menu.fxml"));

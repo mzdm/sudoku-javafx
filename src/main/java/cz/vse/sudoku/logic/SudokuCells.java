@@ -19,9 +19,9 @@ public class SudokuCells {
             for (int j = 0; j < sizeSudoku; j++) {
                 int num = generatedArrSudoku[i][j];
                 if (num == 0) {
-                    this.arraySudoku[i][j] = new Cell(generatedArrSudoku[i][j]);
+                    this.arraySudoku[i][j] = new Cell(num);
                 } else {
-                    this.arraySudoku[i][j] = new Cell(generatedArrSudoku[i][j], false);
+                    this.arraySudoku[i][j] = new Cell(num, false);
                 }
             }
         }

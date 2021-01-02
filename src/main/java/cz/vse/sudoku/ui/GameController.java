@@ -49,7 +49,7 @@ public class GameController {
      * Spuštění nového okna se sudoku
      *
      * @param menuController okno s menu
-     * @param primaryStage primární okno
+     * @param primaryStage   primární okno
      */
     public void init(MenuController menuController, Stage primaryStage) {
         this.init(menuController, primaryStage, null);
@@ -58,8 +58,8 @@ public class GameController {
     /**
      * Spuštění nového okna se sudokou z uložené hry v souboru
      *
-     * @param menuController okno s menu
-     * @param primaryStage primární okno
+     * @param menuController       okno s menu
+     * @param primaryStage         primární okno
      * @param loadedSudokuSaveFile uložená hra
      */
     public void init(MenuController menuController, Stage primaryStage, Cell[][] loadedSudokuSaveFile) {
@@ -201,6 +201,7 @@ public class GameController {
 
     /**
      * Metoda zjišťující zda mají být políčka modrá a rozdělovat tabulku na jednotlivé bloky po devíti políčkách
+     *
      * @param i
      * @param j
      * @return boolean hodnota

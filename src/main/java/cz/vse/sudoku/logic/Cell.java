@@ -35,7 +35,7 @@ public class Cell implements Serializable {
     }
 
     /**
-     * Konstruktor pro vytvoření číselné hodnoty nacházející se v buňce.
+     * Getter pro získání číselné hodnoty nacházející se v buňce.
      * @return cellNum
      */
     public int getCellNum() {

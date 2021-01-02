@@ -138,7 +138,7 @@ public class MenuController {
     /**
      * Metoda, která přidá do seznamu nejlepších výsledků nového hráče
      *
-     * @param pos pozice
+     * @param pos  pozice
      * @param user hráč
      * @return řetězec s umístěním, jménem hráče a časem
      */

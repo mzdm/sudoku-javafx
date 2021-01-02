@@ -1,4 +1,5 @@
 package cz.vse.sudoku.service;
+
 /**
  * Třída User představuje hráče, kteří se budou snažit vyřešit sudoku v určitém čase.
  */
@@ -9,7 +10,7 @@ public class User {
     /**
      * Konstruktor pro vytvoření hráče se jménem a časem hry
      *
-     * @param name = jméno postavy
+     * @param name      = jméno postavy
      * @param scoreTime = čas hry
      */
     public User(String name, int scoreTime) {

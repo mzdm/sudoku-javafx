@@ -1,6 +1,7 @@
 package cz.vse.sudoku.service;
 
 import java.util.*;
+
 /**
  * Třída Leaderboard představuje tabulku s nejlepšími výsledky
  */
