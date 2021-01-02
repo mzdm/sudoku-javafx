@@ -251,12 +251,17 @@ public class GameController {
 
     public void onRegenerate() {
         stopTimer();
+        closeWindow();
 
         try {
             menuController.onNewGame();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void closeWindow() {
+        gameStage.close();
     }
 
     public void onSave() {
