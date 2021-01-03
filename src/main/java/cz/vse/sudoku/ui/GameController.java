@@ -65,7 +65,7 @@ public class GameController {
         this.gameStage = primaryStage;
         firebaseService = FirebaseService.getInstance();
 
-        generateSudoku(loadedSudokuSaveFile)
+        generateSudoku(loadedSudokuSaveFile);
         createGrid();
         startTimer();
     }
