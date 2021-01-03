@@ -10,6 +10,14 @@ import java.util.*;
 
 // https://firebase.google.com/docs/database/rest/start
 // https://github.com/bane73/firebase4j
+
+/**
+ * Instance třídy FirebaseService. Služba umožňuje ukládání herního skóre.
+ * Tyto se zobrazují v sekci Leaderboard spustitelného z menu.
+ *
+ * @author Matěj Žídek, Jakub Frolík, Vít Kollarczyk, Dominik Sluka, Jan Kubata
+ * @version 1.0
+ */
 public class FirebaseService {
     private final String BASE_URL = "https://sudoku-javafx.firebaseio.com/scores";
 
@@ -26,6 +34,11 @@ public class FirebaseService {
         return instance;
     }
 
+    /**
+     * Metoda ukládá hodnotu časového skóre, kterého hráč dosáhl, na službu Firebase.
+     *
+     * @param user instance třídy User, která obsahuje jméno a skóre
+     */
     public void saveScore(User user) {
         try {
             firebase = new Firebase(BASE_URL);
@@ -46,6 +59,11 @@ public class FirebaseService {
         }
     }
 
+    /**
+     * Metoda, která volá uložené hodnoty leaderboardu na Firebase.
+     *
+     * @return instance třídy Leaderboard, pokud byla operace volání úspěšná, jinak null
+     */
     public Leaderboard getScores() {
         try {
             firebase = new Firebase(BASE_URL);

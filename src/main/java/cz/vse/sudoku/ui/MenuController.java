@@ -20,25 +20,49 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Třída MenuController reprezentuje jednotlivé metody, které se provedou, vyvolají v grafické verzi hry na první obrazovce
+ */
 public class MenuController {
 
     private Stage menuStage;
     private FirebaseService firebaseService;
     private PersistenceProvider persistenceProvider;
 
+    /**
+     * Spuštění nového okna s hlavním menu
+     *
+     * @param primaryStage primární okno
+     */
     public void init(Stage primaryStage) {
         this.menuStage = primaryStage;
         firebaseService = FirebaseService.getInstance();
     }
 
+    /**
+     * Nastavuje tuto třídu jako ukládání objektů do serializace
+     *
+     * @param persistenceProvider
+     */
     public void setPersistenceProvider(PersistenceProvider persistenceProvider) {
         this.persistenceProvider = persistenceProvider;
     }
 
+    /**
+     * Metoda, která vytvoří novou hru
+     *
+     * @throws IOException
+     */
     public void onNewGame() throws IOException {
         onNewGame(null);
     }
 
+    /**
+     * Metoda, která vytvoří a načte novou hru ze souboru
+     *
+     * @param loadedSudokuSaveFile uložená hra
+     * @throws IOException
+     */
     private void onNewGame(Cell[][] loadedSudokuSaveFile) throws IOException {
         menuStage.close();
 
@@ -60,6 +84,9 @@ public class MenuController {
         gameStage.show();
     }
 
+    /**
+     * Metoda sloužící k načtení uložené hry
+     */
     public void onLoad() {
         try {
             Cell[][] loadedSudokuSaveFile = persistenceProvider.loadGame();
@@ -71,6 +98,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * Metoda, která zobrazí leaderboard, tabulku nejlepších výkonů v novém okně.
+     */
     public void onLeaderboard() {
         StackPane layout = new StackPane();
         layout.setPrefSize(350, 500);
@@ -105,11 +135,18 @@ public class MenuController {
         }
     }
 
+    /**
+     * Metoda, která přidá do seznamu nejlepších výsledků nového hráče
+     *
+     * @param pos  pozice
+     * @param user hráč
+     * @return řetězec s umístěním, jménem hráče a časem
+     */
     private Label addLeaderboardItem(int pos, User user) {
-        String text = pos + "   -----: --s";
+        String text = pos + "      ------------(-- m --s)";
 
         if (user != null) {
-            text = pos + "   User: " + user.getName() + " : " + user.getScoreTime() + "s";
+            text = pos + "      " + user.getName() + " (" + user.getFormattedScoreTime() + ")";
         }
 
         Label label = new Label();
@@ -117,6 +154,9 @@ public class MenuController {
         return label;
     }
 
+    /**
+     * Metoda zobrazující nápovědu v novém okně
+     */
     public void onHelp() {
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
@@ -130,6 +170,9 @@ public class MenuController {
         secondaryStage.show();
     }
 
+    /**
+     * Metoda, která ukončí hru
+     */
     public void onExit() {
         System.exit(0);
     }

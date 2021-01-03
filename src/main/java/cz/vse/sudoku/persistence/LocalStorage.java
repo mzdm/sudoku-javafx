@@ -5,9 +5,23 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 
+/**
+ * Instance třídy LocalStorage. Daná třída ukládá a načítá konkrétní hru.
+ *
+ * @author Vít Kollarczyk, Jakub Frolík, Jan Kubata, Dominik Sluka, Matěj Žídek
+ * @version 1.0
+ */
 public class LocalStorage implements PersistenceProvider {
     private static final String SAVE_FILE_NAME = "sudoku_save.bin";
 
+    /**
+     * Metoda pro načítání konkrétní rozpracované hry z lokálního úložiště.
+     * Metoda načte stejné sudoku, které měl uživatel rozpracované z předchozí
+     * hry v případě, že si danou hru lokálně uložil.
+     *
+     * @return načtení hry
+     * @throws PersistenceException
+     */
     @Override
     public Cell[][] loadGame() throws PersistenceException {
         try {
@@ -40,6 +54,13 @@ public class LocalStorage implements PersistenceProvider {
         }
     }
 
+    /**
+     * Metoda pro ukládání hry. V případě, že hráč uprostřed hry uloží konkrétní hru,
+     * má možnost si ji později načíst, nicméně již nebude započítán časový limit.
+     *
+     * @param cells
+     * @throws PersistenceException
+     */
     @Override
     public void saveGame(Cell[][] cells) throws PersistenceException {
         try {

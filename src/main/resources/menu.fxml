@@ -8,7 +8,7 @@
       fx:controller="cz.vse.sudoku.ui.MenuController"
       prefHeight="400.0" prefWidth="600.0" alignment="CENTER" spacing="10" stylesheets="styles.css" styleClass="menu">
 
-    <Label  styleClass="logo" textFill="#d5d5d5">SUDOKU</Label>
+    <Label styleClass="logo">SUDOKU</Label>
     <Label onMouseClicked="#onNewGame" styleClass="menuLabel">New Game</Label>
     <Label onMouseClicked="#onLoad" styleClass="menuLabel">Load</Label>
     <Label onMouseClicked="#onLeaderboard" styleClass="menuLabel">Leaderboard</Label>
