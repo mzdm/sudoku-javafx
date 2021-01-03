@@ -17,11 +17,15 @@ public class SudokuCellsTest {
     private SudokuCells sudokuCellsFilledCorrect;
     private SudokuCells sudokuCellsFilledIncorrect;
 
+    private SudokuCells sudokuCellsRandom;
+
     @Before
     public void setUp() {
         sudokuCellsNewGame = new SudokuCells(SUDOKU_BOARD_NEW_GAME);
         sudokuCellsFilledCorrect = new SudokuCells(SUDOKU_BOARD_FILLED_CORRECT);
         sudokuCellsFilledIncorrect = new SudokuCells(SUDOKU_BOARD_FILLED_INCORRECT);
+
+        sudokuCellsRandom = new SudokuCells(new NumberGenerator().getRandomSudoku());
     }
 
     @Test
@@ -33,6 +37,9 @@ public class SudokuCellsTest {
         assertEquals(sudokuCellsNewGame.getArraySudoku(), cellsNewGame);
         assertEquals(sudokuCellsFilledCorrect.getArraySudoku(), cellsFilledCorrect);
         assertEquals(sudokuCellsFilledIncorrect.getArraySudoku(), cellsFilledIncorrect);
+
+        assertNotEquals(null, sudokuCellsRandom.getArraySudoku());
+        assertNotEquals(null, sudokuCellsRandom);
     }
 
     @Test
@@ -40,6 +47,7 @@ public class SudokuCellsTest {
         assertFalse(sudokuCellsNewGame.areAllCellsFilled());
         assertTrue(sudokuCellsFilledCorrect.areAllCellsFilled());
         assertTrue(sudokuCellsFilledIncorrect.areAllCellsFilled());
+        assertFalse(sudokuCellsRandom.areAllCellsFilled());
     }
 
     @Test
@@ -47,6 +55,7 @@ public class SudokuCellsTest {
         assertFalse(sudokuCellsNewGame.isSudokuValid());
         assertTrue(sudokuCellsFilledCorrect.isSudokuValid());
         assertFalse(sudokuCellsFilledIncorrect.isSudokuValid());
+        assertFalse(sudokuCellsRandom.isSudokuValid());
     }
 
     @Test
@@ -61,7 +70,7 @@ public class SudokuCellsTest {
 
         copySudokuCellsNewGame.changeElement(0, 0, 5);
         assertFalse(copySudokuCellsNewGame.areAllCellsFilled());
-        assertTrue(copySudokuCellsNewGame.isSudokuValid());
+        assertFalse(copySudokuCellsNewGame.isSudokuValid());
 
         copySudokuCellsNewGame.changeElement(6, 0, 6);
         assertTrue(copySudokuCellsNewGame.areAllCellsFilled());

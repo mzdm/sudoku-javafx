@@ -19,7 +19,7 @@ public class NumberGeneratorTest {
 
     @Test
     public void testRandomSudoku() {
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i < 100; i++) {
             assertNotEquals(null, numberGenerator.getRandomSudoku());
         }
     }

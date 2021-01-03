@@ -52,7 +52,7 @@ public class SudokuCells {
                 for (int col2 = col + 1; col2 < sizeSudoku; col2++) {
                     int num1 = arraySudoku[row][col].getCellNum();
                     int num2 = arraySudoku[row][col2].getCellNum();
-                    if (num1 == num2) {
+                    if (num1 == num2 || num1 == 0 || num2 == 0) {
                         System.out.println("řádek špatně");
                         return false;
                     }
@@ -74,7 +74,7 @@ public class SudokuCells {
                 for (int row2 = row + 1; row2 < sizeSudoku; row2++) {
                     int num1 = arraySudoku[row][col].getCellNum();
                     int num2 = arraySudoku[row2][col].getCellNum();
-                    if (num1 == num2) {
+                    if (num1 == num2 || num1 == 0 || num2 == 0) {
                         System.out.println("sloupec špatně");
                         return false;
                     }
@@ -97,7 +97,7 @@ public class SudokuCells {
                     for (int pos2 = pos + 1; pos2 < sizeSudoku; pos2++) {
                         int num1 = arraySudoku[row + (pos % 3)][col + (pos / 3)].getCellNum();
                         int num2 = arraySudoku[row + (pos2 % 3)][col + (pos2 / 3)].getCellNum();
-                        if (num1 == num2) {
+                        if (num1 == num2 || num1 == 0 || num2 == 0) {
                             System.out.println("grid špatně");
                             return false;
                         }
