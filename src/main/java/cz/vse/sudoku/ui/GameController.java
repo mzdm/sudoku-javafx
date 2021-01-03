@@ -63,17 +63,9 @@ public class GameController {
     public void init(MenuController menuController, Stage primaryStage, Cell[][] loadedSudokuSaveFile) {
         this.menuController = menuController;
         this.gameStage = primaryStage;
-
         firebaseService = FirebaseService.getInstance();
 
-        if (loadedSudokuSaveFile == null) {
-            NumberGenerator numberGenerator = new NumberGenerator();
-            cells = new SudokuCells(numberGenerator.getRandomSudoku());
-        } else {
-            wasGameLoaded = true;
-            cells = new SudokuCells(loadedSudokuSaveFile);
-        }
-
+        generateSudoku(loadedSudokuSaveFile)
         createGrid();
         startTimer();
     }
@@ -85,6 +77,21 @@ public class GameController {
      */
     public void setPersistenceProvider(PersistenceProvider persistenceProvider) {
         this.persistenceProvider = persistenceProvider;
+    }
+
+    /**
+     * Metoda, která generuje herní pole Sudoku
+     *
+     * @param loadedSudokuSaveFile pokud není null tak se načte uložené herní Sudoku pole
+     */
+    private void generateSudoku(Cell[][] loadedSudokuSaveFile) {
+        if (loadedSudokuSaveFile == null) {
+            NumberGenerator numberGenerator = new NumberGenerator();
+            cells = new SudokuCells(numberGenerator.getRandomSudoku());
+        } else {
+            wasGameLoaded = true;
+            cells = new SudokuCells(loadedSudokuSaveFile);
+        }
     }
 
     /**
@@ -118,17 +125,16 @@ public class GameController {
     }
 
     /**
-     * Metoda vytvářející a upravující samotnou tabulku sudoku a udávající pravidla při vyplňování políček
+     * Metoda vytvářející a upravující v okně samotnou tabulku sudoku a udávající pravidla při vyplňování políček
      */
     private void createGrid() {
         for (int i = 0; i < sizeSudoku; i++) {
             for (int j = 0; j < sizeSudoku; j++) {
                 int num = cells.getArraySudoku()[i][j].getCellNum();
-                boolean isCellModifiable = cells.getArraySudoku()[i][j].isModifiable();
-
-                String color = "black";
                 final TextField textFieldCell = new TextField("" + num);
 
+                boolean isCellModifiable = cells.getArraySudoku()[i][j].isModifiable();
+                String color = "black";
                 if (isCellModifiable) {
                     if (num == 0) {
                         textFieldCell.clear();
